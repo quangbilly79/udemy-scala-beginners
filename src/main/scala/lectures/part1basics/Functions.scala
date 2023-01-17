@@ -5,8 +5,7 @@ object Functions extends App {
   def aFunction(a: String, b: Int): String = {
     a + " " + b
   }
-
-  println(aFunction("hello", 3))
+  println(aFunction("hello", 3)) // hello 3
 
   def aParameterlessFunction(): Int = 42
   println(aParameterlessFunction())
@@ -16,11 +15,10 @@ object Functions extends App {
     if (n == 1) aString
     else aString + aRepeatedFunction(aString, n-1)
   }
-
-  println(aRepeatedFunction("hello",3))
-
+  println(aRepeatedFunction("hello",3)) //hellohellohello
   // WHEN YOU NEED LOOPS, USE RECURSION.
 
+  // Kdl trả về là Void
   def aFunctionWithSideEffects(aString: String): Unit = println(aString)
 
   def aBigFunction(n: Int): Int = {
@@ -40,31 +38,59 @@ object Functions extends App {
     4.  Tests if a number is prime.
    */
 
-  def greetingForKids(name: String, age: Int): String =
-    "Hi, my name is " + name + " and I am " + age + " years old."
-  println(greetingForKids("David", 12))
+  def func1(name: String, age: Int): String = {
+    return f"Hi, my name is ${name} and I am ${age} years old."
 
-  def factorial(n: Int): Int =
-    if (n <= 0) 1
-    else n * factorial(n-1)
-
-  println(factorial(5))
-
-  def fibonacci(n: Int): Int =
-    if (n <= 2) 1
-    else fibonacci(n-1) + fibonacci(n-2)
-
-  // 1 1 2 3 5 8 13 21
-  println(fibonacci(8))
-
-  def isPrime(n: Int): Boolean = {
-    def isPrimeUntil(t: Int): Boolean =
-      if (t <= 1) true
-      else n % t != 0 && isPrimeUntil(t-1)
-
-    isPrimeUntil(n / 2)
   }
-  println(isPrime(37))
-  println(isPrime(2003))
-  println(isPrime(37 * 17))
+  println("func1: " + func1("Quang", 27))
+
+  def factorial(n: Int): math.BigInt = {
+    var result = 1
+    for (i <- 1 to n) {
+      result *= i
+    }
+    return result
+  }
+  println("factorial: " + factorial(10)) //3628800
+
+  def fibonacci(n: Int): Int = {
+    if (n == 1 || n == 2) {
+      return 1
+    }
+    return fibonacci(n-1) + fibonacci(n-2)
+  }
+  println("fibonacci: " + fibonacci(10)) //55
+
+  def testPrime(n: Int): Boolean = {
+    for (i <- 2 to math.sqrt(n).toInt) {
+      if
+    }
+  }
+//  def greetingForKids(name: String, age: Int): String =
+//    "Hi, my name is " + name + " and I am " + age + " years old."
+//  println(greetingForKids("David", 12))
+//
+//  def factorial(n: Int): Int =
+//    if (n <= 0) 1
+//    else n * factorial(n-1)
+//
+//  println(factorial(5))
+//
+//  def fibonacci(n: Int): Int =
+//    if (n <= 2) 1
+//    else fibonacci(n-1) + fibonacci(n-2)
+//
+//  // 1 1 2 3 5 8 13 21
+//  println(fibonacci(8))
+//
+//  def isPrime(n: Int): Boolean = {
+//    def isPrimeUntil(t: Int): Boolean =
+//      if (t <= 1) true
+//      else n % t != 0 && isPrimeUntil(t-1)
+//
+//    isPrimeUntil(n / 2)
+//  }
+//  println(isPrime(37))
+//  println(isPrime(2003))
+//  println(isPrime(37 * 17))
 }
