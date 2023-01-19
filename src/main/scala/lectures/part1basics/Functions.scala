@@ -62,10 +62,18 @@ object Functions extends App {
   println("fibonacci: " + fibonacci(10)) //55
 
   def testPrime(n: Int): Boolean = {
-    for (i <- 2 to math.sqrt(n).toInt) {
-      if
+    if (n == 1 && n == 2) {
+      return true
     }
+    for (i <- 2 to math.sqrt(n).toInt) {
+      if (n%i == 0) {
+        return false
+      }
+    }
+    return true
   }
+
+  println("testPrime: " + testPrime(2))
 //  def greetingForKids(name: String, age: Int): String =
 //    "Hi, my name is " + name + " and I am " + age + " years old."
 //  println(greetingForKids("David", 12))

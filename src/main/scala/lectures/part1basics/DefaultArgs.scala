@@ -8,7 +8,8 @@ object DefaultArgs extends App {
 
   val fact10 = trFact(10, 2)
 
-  def savePicture(format: String = "jpg", width: Int = 1920, height: Int = 1080): Unit = println("saving picture")
+  def savePicture(format: String = "jpg", width: Int = 1920, height: Int = 1080):
+  Unit = println("saving picture")
   savePicture(width = 800)
 
   /*
@@ -17,4 +18,8 @@ object DefaultArgs extends App {
    */
   
   savePicture(height = 600, width = 800, format = "bmp")
+
+  def savePicture1(format: String, width: Int = 5, height: Int = 6):
+  Unit = println(format + width + height)
+  savePicture1(format = "abc")
 }
