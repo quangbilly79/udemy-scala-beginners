@@ -8,7 +8,7 @@ import java.sql.{Date => SqlDate}
 object PackagingAndImports extends App {
 
   // package members are accessible by their simple name
-  val writer = new Writer("Daniel", "RockTheJVM", 2018)
+  //val writer = new Writer("Daniel", "RockTheJVM", 2018)
 
   // import the package
   val princess = new Princess  // playground.Cinderella = fully qualified name

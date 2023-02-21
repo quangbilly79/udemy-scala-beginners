@@ -5,6 +5,7 @@ object MethodNotations extends App {
 
   class Person(val name: String, favoriteMovie: String, val age: Int = 0) {
     def likes(movie: String): Boolean = movie == favoriteMovie
+    // def __add__ trong Python
     def +(person: Person): String = s"${this.name} is hanging out with ${person.name}"
     def +(nickname: String): Person = new Person(s"$name ($nickname)", favoriteMovie)
     def unary_! : String = s"$name, what the heck?!"
@@ -13,7 +14,7 @@ object MethodNotations extends App {
     def apply(): String = s"Hi, my name is $name and I like $favoriteMovie"
     def apply(n: Int): String = s"$name watched $favoriteMovie $n times"
     def learns(thing: String) = s"$name is learning $thing"
-    def learnsScala = this learns "Scala"
+    def learnsScala = this learns "Scala" //this.learn("Scala")
   }
 
   val mary = new Person("Mary", "Inception")
@@ -23,22 +24,22 @@ object MethodNotations extends App {
 
   // "operators" in Scala
   val tom = new Person("Tom", "Fight Club")
-  println(mary + tom)
-  println(mary.+(tom))
+  println(mary + tom) //Mary is hanging out with Tom
+  println(mary.+(tom)) //Mary is hanging out with Tom
 
-  println(1 + 2)
-  println(1.+(2))
+  println(1 + 2) //3
+  println(1.+(2)) //3
 
   // ALL OPERATORS ARE METHODS.
   // Akka actors have ! ?
 
   // prefix notation
-  val x = -1  // equivalent with 1.unary_-
-  val y = 1.unary_-
+  val x = -1  // equivalent with 1.unary_- -1
+  val y = 1.unary_- // -1
   // unary_ prefix only works with - + ~ !
 
-  println(!mary)
-  println(mary.unary_!)
+  println(!mary) //Mary, what the heck?!
+  println(mary.unary_!) //Mary, what the heck?!
 
   // postfix notation
   println(mary.isAlive)
