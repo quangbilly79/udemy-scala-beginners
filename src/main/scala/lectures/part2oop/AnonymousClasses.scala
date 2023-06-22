@@ -6,20 +6,20 @@ object AnonymousClasses extends App {
     def eat: Unit
   }
 
-  // anonymous class
+  // anonymous class: Đường tắt tạo 1 Class từ Abstract Class hoặc Class thường
   val funnyAnimal: Animal = new Animal {
     override def eat: Unit = println("ahahahahahaah")
   }
-  /*
-    equivalent with
+
+    //equivalent with
 
     class AnonymousClasses$$anon$1 extends Animal {
       override def eat: Unit = println("ahahahahahaah")
     }
-    val funnyAnimal: Animal = new AnonymousClasses$$anon$1
-   */
+    //val funnyAnimal: Animal = new AnonymousClasses$$anon$1
 
-  println(funnyAnimal.getClass)
+
+  println(funnyAnimal.getClass) //class lectures.part2oop.AnonymousClasses$$anon$1
 
   class Person(name: String) {
     def sayHi: Unit = println(s"Hi, my name is $name, how can I help?")

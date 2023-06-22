@@ -4,33 +4,50 @@ object Exceptions extends App {
 
   val x: String = null
   //  println(x.length)
-  //  this ^^ will crash with a NPE
+  //  this ^^ will crash with a NPE (Null Point Exception)
 
   // 1. throwing exceptions
-  //  val aWeirdValue: String = throw new NullPointerException // also crashes
-
-  // throwable classes extend the Throwable class.
+  // Mọi thứ trong Scala là expression nên có thể gán giá trị cho 1 biến
+  // Return type là Nothing, là sub-class của mọi type
+  // NullPointerException là 1 class, extend Throwable class, nên có thể throw
   // Exception and Error are the major Throwable subtypes
 
-  // 2. how to catch exceptions
-  def getInt(withExceptions: Boolean): Int =
-    if (withExceptions) throw new RuntimeException("No int for you!")
-    else 42
+  //val aWeirdValue: String = throw new NullPointerException // also crashes
 
+
+
+  // 2. how to catch exceptions
+  // Hàm mà Nếu đầu vào là True thì throw error
+  // Nếu là False thì trả về 42
+  def getInt(withExceptions: Boolean): Int =
+    if (withExceptions) throw new NullPointerException ("No int for you!")
+    else 42
+  // Catch lỗi vs Try/Catch/Finally
   val potentialFail = try {
-    // code that might throw
-    getInt(false)
+    // Đoạn code mà có thể bị lỗi
+    getInt(true)
   } catch {
-    case e: RuntimeException => 43
+        // Nếu bị lỗi thì chạy đoạn dưới
+        // Có thể thiết kế kiểu tùy loại lỗi mà chạy những lệnh khác nhau
+        // cú pháp case e: ErrorType => Giá trị trả về liên quan đến pattern matching
+    case e: ArrayIndexOutOfBoundsException  => 43
+    case e: NoSuchElementException  => 41
+      // Có thể viet thành Java code kiểu
+//    catch (e: RuntimeException) {
+//      return 43
+//    }
   } finally {
-    // code that will get executed NO MATTER WHAT
+    // Đoạn dưới này dù lỗi hay không đều chạy
     // optional
     // does not influence the return type of this expression
     // use finally only for side effects
     println("finally")
   }
+  // finally
+  println("---------")
+  println(potentialFail) //43
+  println("---------")
 
-  println(potentialFail)
 
   // 3. how to define your own exceptions
   class MyException extends Exception
@@ -52,10 +69,10 @@ object Exceptions extends App {
           - UnderflowException if subtract(x,y) exceeds Int.MIN_VALUE
           - MathCalculationException for division by 0
    */
-  //  OOM
+  //  OOM (out of memory error)
   //  val array = Array.ofDim(Int.MaxValue)
 
-  //  SO
+  //  SO (stack over flow error)
   //  def infinite: Int = 1 + infinite
   //  val noLimit = infinite
 

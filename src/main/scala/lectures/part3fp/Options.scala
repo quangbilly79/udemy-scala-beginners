@@ -4,37 +4,43 @@ import java.util.Random
 
 object Options extends App {
 
+  // Khai báo kdl Option dạng Option[kdl] = Some(value) hoặc None
   val myFirstOption: Option[Int] = Some(4)
   val noOption: Option[Int] = None
 
-  println(myFirstOption)
+  println(myFirstOption) // Some(4)
+  println(noOption) // None
 
-  // WORK with unsafe APIs
+  // 1 hàm trả về null hoặc 1 giá trị nào đó
   def unsafeMethod(): String = null
-  //  val result = Some(null) // WRONG
+  // Dùng Option(param) (~.apply(param)), trả về kdl Option
+  // trả về Some(value) nếu param k null, và None nếu param null
   val result = Option(unsafeMethod()) // Some or None
-  println(result)
+  println(result) // None
 
-  // chained methods
+  // chained methods. Dùng Option.orElse(value) để trả về value khác trong TH Option rỗng (None)
   def backupMethod(): String = "A valid result"
   val chainedResult = Option(unsafeMethod()).orElse(Option(backupMethod()))
 
-  // DESIGN unsafe APIs
+  // DESIGN unsafe APIs. Tương tự như trên, đổi syntax
+  // Function trả về kdl Option, giá trị là None thay vì trả về kdl String, giá trị null
   def betterUnsafeMethod(): Option[String] = None
   def betterBackupMethod(): Option[String] = Some("A valid result")
   val betterChainedResult = betterUnsafeMethod() orElse betterBackupMethod()
 
   // functions on Options
-  println(myFirstOption.isEmpty)
-  println(myFirstOption.get)  // USAFE - DO NOT USE THIS
+  // isEmpty: check xem Option rỗng hay không
+  println(myFirstOption.isEmpty) // false
+  // get: lấy value trong Some(value). Nếu rỗng sẽ lỗi Exception
+  println(myFirstOption.get)  // USAFE - DO NOT USE THIS // 4
 
-  // map, flatMap, filter
-  println(myFirstOption.map(_ * 2))
-  println(myFirstOption.filter(x => x > 10))
-  println(myFirstOption.flatMap(x => Option(x * 10)))
+  // map, flatMap, filter. Vì Option cx extend Iterable nên có mấy cái func này
+  println(myFirstOption.map(_ * 2)) // Some(8) ~ x => x*2
+  println(myFirstOption.filter(x => x > 10)) // None
+  // Khác map 1 chút là giá trị trả về của hàm là Option, tức là có thể trả về None
+  println(myFirstOption.flatMap(x => Option(x * 10))) // Some(40)
 
   // for-comprehensions
-
   /*
     Exercise.
    */

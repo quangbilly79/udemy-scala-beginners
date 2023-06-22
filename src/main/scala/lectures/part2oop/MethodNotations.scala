@@ -3,18 +3,48 @@ import scala.language.postfixOps
 
 object MethodNotations extends App {
 
-  class Person(val name: String, favoriteMovie: String, val age: Int = 0) {
+  class Person(val name: String, val favoriteMovie: String, val age: Int = 0) {
     def likes(movie: String): Boolean = movie == favoriteMovie
     // def __add__ trong Python
     def +(person: Person): String = s"${this.name} is hanging out with ${person.name}"
-    def +(nickname: String): Person = new Person(s"$name ($nickname)", favoriteMovie)
+    //def +(nickname: String): Person = new Person(s"$name ($nickname)", favoriteMovie)
+
+//  1. Overload the + operator mary + "the rockstar" => new person "Mary (the rockstar)"
+    def +(nickname: String): Person = {
+      new Person(name = s"${this.name} (the $nickname)", favoriteMovie = this.favoriteMovie);
+    }
+
     def unary_! : String = s"$name, what the heck?!"
-    def unary_+ : Person = new Person(name, favoriteMovie, age + 1)
+
+    //2.  Add an age to the Person class
+    //        Add a unary + operator => new person with the age + 1
+    //        +mary => mary with the age incrementer
+    def unary_+ : Person = {
+      new Person(name = this.name, favoriteMovie = this.favoriteMovie, age = this.age+1);
+    }
+
     def isAlive: Boolean = true
     def apply(): String = s"Hi, my name is $name and I like $favoriteMovie"
-    def apply(n: Int): String = s"$name watched $favoriteMovie $n times"
-    def learns(thing: String) = s"$name is learning $thing"
-    def learnsScala = this learns "Scala" //this.learn("Scala")
+
+    //4.  Overload the apply method
+    //        mary.apply(2) => "Mary watched Inception 2 times"
+    def apply(timeWatch: Int): String = {
+      return s"${this.name} watched ${this.favoriteMovie} $timeWatch times"
+    }
+
+
+    //3.  Add a "learns" method in the Person class => "Mary learns Scala"
+    //        Add a learnsScala method, calls learns method with "Scala".
+    //        Use it in postfix notation.
+    def learns(subject: String): String = {
+      s"${this.name} learns $subject";
+    }
+    def learnsScala(): String = {
+      this.learns("scala");
+      //learns("scala); // call như bên dưới cx đc
+    }
+
+
   }
 
   val mary = new Person("Mary", "Inception")
@@ -26,6 +56,16 @@ object MethodNotations extends App {
   val tom = new Person("Tom", "Fight Club")
   println(mary + tom) //Mary is hanging out with Tom
   println(mary.+(tom)) //Mary is hanging out with Tom
+
+  val maryWithNickName: Person = mary + "rockstar" //
+  println(maryWithNickName()) // Hi, my name is Mary (the rockstar) and I like Inception
+
+  println(maryWithNickName(3)) // Mary (the rockstar) watched Inception 3 times
+
+  val maryWithAdditionalAge: Person = +mary // age 0
+  println(maryWithAdditionalAge.age) // age 1
+
+
 
   println(1 + 2) //3
   println(1.+(2)) //3
@@ -42,33 +82,19 @@ object MethodNotations extends App {
   println(mary.unary_!) //Mary, what the heck?!
 
   // postfix notation
-  println(mary.isAlive)
+  println(mary.isAlive) //true
   println(mary isAlive) // only available with the scala.language.postfixOps import - discouraged
 
   // apply
-  println(mary.apply())
-  println(mary()) // equivalent
+  println(mary.apply()) //Hi, my name is Mary and I like Inception
+  println(mary()) // Hi, my name is Mary and I like Inception
 
-  /*
-    1.  Overload the + operator
-        mary + "the rockstar" => new person "Mary (the rockstar)"
+  // learn
+  println(mary.learns("java")) // Mary learns java
+  println(mary.learnsScala()) // Mary learns scala
 
-    2.  Add an age to the Person class
-        Add a unary + operator => new person with the age + 1
-        +mary => mary with the age incrementer
 
-    3.  Add a "learns" method in the Person class => "Mary learns Scala"
-        Add a learnsScala method, calls learns method with "Scala".
-        Use it in postfix notation.
 
-    4.  Overload the apply method
-        mary.apply(2) => "Mary watched Inception 2 times"
-   */
-
-  println((mary + "the Rockstar").apply())
-  println((+mary).age)
-  println(mary learnsScala)
-  println(mary(10))
 
 
 }

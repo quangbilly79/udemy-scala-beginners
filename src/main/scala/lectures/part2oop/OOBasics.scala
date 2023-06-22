@@ -9,8 +9,6 @@ object OOBasics extends App {
     // body
     val x = 2
 
-    println(1 + 3)
-
     // method
     def greet(name: String): Unit = println(s"${this.name} says: Hi, $name")
     //John says: Hi, Daniel => this.name => Class param
@@ -18,18 +16,23 @@ object OOBasics extends App {
     def greet(): Unit = println(s"Hi, I am $name")
 
     // multiple constructors
-    def this(name: String) = this(name, 0)
+    def this(name: String) = this(name, 2)
     def this() = this("John Doe")
   }
 
   val person = new Person("John", 26)
-  println(person.x)
-  person.greet("Daniel")
-  person.greet()
+  println(person.age) // 26
+  person.greet("Daniel") //John says: Hi, Daniel
+  person.greet() //Hi, I am John
 
   val person1 = new Person()
   person1.greet() //Hi, I am John Doe
-  println(person1.age) //0
+  println(person1.age) //2
+
+  val person2 = new Person("Abc")
+  person2.greet() //Hi, I am Abc
+  println(s"person2.age: ${person2.age}") //2
+
 
   class Writer(val firstName: String, val surName: String, val year: Int) {
     def fullName(): String = {

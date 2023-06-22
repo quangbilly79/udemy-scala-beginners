@@ -4,30 +4,35 @@ import scala.util.Random
 
 object PatternMatching extends App {
 
-  // switch on steroids
+  // switch (mutiplier if else)
   val random = new Random
   val x = random.nextInt(10)
-
+  // sẽ check các case từ trên xg
+  // các từ khóa "case", "match"
+  // ki tự "_" là Wildcard, nghĩa là các giá trị còn lại.
+  // Tổng quát "_" là 1 placeholder cho 1 tham số
   val description = x match {
     case 1 => "the ONE"
     case 2 => "double or nothing"
     case 3 => "third time is the charm"
     case _ => "something else"  // _ = WILDCARD
   }
+  println(s"x: $x")
+  println(description) // x=1 => "the ONE", x != 123 => "something else"
 
-  println(x)
-  println(description)
-
-  // 1. Decompose values
+  // 1. Decompose values:
+  // Có thể dùng match case với Case Class/Object, k dùng đc vs Class thg
+  // Bởi vì cần tạo 1 instance vs apply method kiểu Person(n, a)
   case class Person(name: String, age: Int)
   val bob = Person("Bob", 20)
 
   val greeting = bob match {
+    // Sẽ tự động thay thế n,a vs các giá trị tg ứng bên trên
     case Person(n, a) if a < 21 => s"Hi, my name is $n and I can't drink in the US"
     case Person(n, a) => s"Hi, my name is $n and I am $a years old"
     case _ => "I don't know who I am"
   }
-  println(greeting)
+  println(greeting) // Hi, my name is Bob and I can't drink in the US
 
   /*
     1. cases are matched in order
@@ -36,7 +41,10 @@ object PatternMatching extends App {
     4. PM works really well with case classes*
    */
 
-  // PM on sealed hierarchies
+  // PM on sealed hierarchies:
+  // Trong TH sealed class, nếu k đầy đủ các case sẽ có warning khi compile
+  // Nếu k seal, sub class có thể ở 1 file khác, compiler sẽ k biết đc nên k warn
+  // Sealed class là class chỉ cho phép extend trong cg 1 source file
   sealed class Animal
   case class Dog(breed: String) extends Animal
   case class Parrot(greeting: String) extends Animal
@@ -47,14 +55,19 @@ object PatternMatching extends App {
   }
 
   // match everything
+  // val x = random.nextInt(10) => x = 4
   val isEven = x match {
+    // n trong case đại diện cho x
     case  n if n % 2 == 0 => true
     case _ => false
   }
-  // WHY?!
+  println(s"isEven: ${isEven}") // isEven: true
+  // 1 biến trả về true nếu x chẵn, false nếu x lẻ.
+  // Hãy dùng cách dưới (isEvenNormal) cho ngắn gọn
   val isEvenCond = if (x % 2 == 0) true else false // ?!
   val isEvenNormal = x % 2 == 0
-
+  println(s"isEvenCond: ${isEvenCond}") // isEvenCond: true
+  println(s"isEvenNormal: ${isEvenNormal}") // isEvenNormal: true
   /*
     Exercise
     simple function uses PM

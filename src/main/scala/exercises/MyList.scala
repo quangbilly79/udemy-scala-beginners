@@ -41,6 +41,8 @@ abstract class MyList[+A] {
   }
 }
 
+// Nothing là sub-class của mọi thứ => MyList[Nothing] là sub-class của MyList[Int/String],..
+// val listOfIntegers: MyList[Int] = Empty => Ok
 case object Empty extends MyList[Nothing] {
   def head: Nothing = throw new NoSuchElementException
   def tail: MyList[Nothing] = throw new NoSuchElementException
@@ -149,6 +151,8 @@ object ListTest extends App {
   val anotherListOfIntegers: MyList[Int] = new Cons(4, new Cons(5, Empty))
   val listOfStrings: MyList[String] = new Cons("Hello", new Cons("Scala", Empty))
 
+  val listOfStrings1 = listOfIntegers.add("abc")
+  println(s"listOfStrings1: $listOfStrings1")
   println(listOfIntegers.toString)
   println(listOfStrings.toString)
 
