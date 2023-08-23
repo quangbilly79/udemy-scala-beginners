@@ -8,7 +8,7 @@ object Sequences extends App {
   val mixSeq = Seq(1, false, "c")
   println(mixSeq) // List(1, false, c)
   println(mixSeq.getClass) // class scala.collection.immutable.$colon$colon
-  val aSequence = Seq(1,3,2,4)
+  var aSequence = Seq(1, 3, 2, 4)
   println(aSequence) // List(1, 3, 2, 4): vì apply method của Seq trả về List
   println(aSequence.getClass) // class scala.collection.immutable.$colon$colon
   println(aSequence.reverse) // List(4, 2, 3, 1)
@@ -18,6 +18,7 @@ object Sequences extends App {
   println(aSequence.patch(2,Seq(9),0)) // List(1, 3, 9, 2, 4): Thêm ptu vào index bất kì (mutable có thể dùng inser)
   println(aSequence.sorted) // List(1, 2, 3, 4)
 
+  println(aSequence)
   // Ranges
   val aRange: Seq[Int] = 1 until 10
   println(aRange.getClass) // class scala.collection.immutable.Range$Exclusive: sub-class của Seq
